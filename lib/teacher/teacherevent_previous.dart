@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:school_events/teacher/tabbar2.dart';

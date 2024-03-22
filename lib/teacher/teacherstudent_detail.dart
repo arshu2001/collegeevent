@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types
+
 import 'package:flutter/material.dart';
 
 class Teacher_Stdetail extends StatefulWidget {
@@ -43,7 +45,7 @@ class _Teacher_StdetailState extends State<Teacher_Stdetail> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -55,7 +57,7 @@ class _Teacher_StdetailState extends State<Teacher_Stdetail> {
             ),
           ),
            Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -67,14 +69,26 @@ class _Teacher_StdetailState extends State<Teacher_Stdetail> {
             ),
           ),
            Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Phone No   :',
                 style: TextStyle(fontSize: 18),
                 ),
-                Text('   ',style: TextStyle(fontSize: 18),)
+                Text('   7559083098',style: TextStyle(fontSize: 18),)
+              ],
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Email   :',
+                style: TextStyle(fontSize: 18),
+                ),
+                Text('   arshad@gmail.com',style: TextStyle(fontSize: 18),)
               ],
             ),
           ),

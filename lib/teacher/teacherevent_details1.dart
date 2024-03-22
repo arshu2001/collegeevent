@@ -1,22 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Teacher_Details extends StatefulWidget {
-  const Teacher_Details({super.key});
+class Teacher_Details1 extends StatefulWidget {
+  const Teacher_Details1({super.key});
 
   @override
-  State<Teacher_Details> createState() => _Teacher_DetailsState();
+  State<Teacher_Details1> createState() => _Teacher_Details1State();
 }
 
-class _Teacher_DetailsState extends State<Teacher_Details> {
+class _Teacher_Details1State extends State<Teacher_Details1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false,
-        title: Center(child: Text('Details',
-        style: TextStyle(fontWeight: FontWeight.bold),
-        )),
-        
+      appBar: AppBar(
+        title: Center(child: Text('Details')),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 5),
@@ -121,7 +118,36 @@ class _Teacher_DetailsState extends State<Teacher_Details> {
                         ),
                         ),
                         subtitle: Text('Department'),
-                        trailing: Icon(CupertinoIcons.clear_circled_solid)
+                        trailing: IconButton(onPressed: () {
+                          showDialog(context: context, builder: (context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.grey[200],
+                              title: Text('Conform Co-ordinator'),
+                              actionsAlignment: MainAxisAlignment.center,
+                              actions: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Center(child: Text('Submit',style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16
+                                      ),)),
+                                  ),
+                                )
+                              ],
+                            );
+                            
+                          },);
+                        }, icon: Icon(CupertinoIcons.clear_circled_solid,color: Colors.blue,)),
                       ),
                     ),
                   );
@@ -132,6 +158,7 @@ class _Teacher_DetailsState extends State<Teacher_Details> {
           ],
         ),
       ),
+      
     );
   }
 }

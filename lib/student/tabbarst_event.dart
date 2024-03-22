@@ -1,20 +1,14 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import
-
 import 'package:flutter/material.dart';
-import 'package:school_events/admin/admin_login.dart';
-import 'package:school_events/teacher/tabbar1.dart';
-import 'package:school_events/teacher/teacher_registration.dart';
-import 'package:school_events/teacher/teacherevent_upcoming.dart';
-import 'package:school_events/teacher/teacherstudent_list.dart';
+import 'package:school_events/student/sttabbar_eventrequest.dart';
 
-class Tabbar extends StatefulWidget {
-  const Tabbar({super.key});
+class TabbarStEvent extends StatefulWidget {
+  const TabbarStEvent({super.key});
 
   @override
-  State<Tabbar> createState() => _TabbarState();
+  State<TabbarStEvent> createState() => _TabbarStEventState();
 }
 
-class _TabbarState extends State<Tabbar> {
+class _TabbarStEventState extends State<TabbarStEvent> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -27,8 +21,8 @@ class _TabbarState extends State<Tabbar> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                    Teacher_List(),
-                    Tabbar1(),
+                    TabbarEventRequest()
+                    
                     
                   ]),
                 )
@@ -53,11 +47,11 @@ class _TabbarState extends State<Tabbar> {
                   ),
                   tabs: [
                   Container(
-                    child: Text('Students',
+                    child: Text('Upcoming',
                     style: TextStyle(fontSize: 20),),
                   ),
                   Container(
-                    child: Text('Events',
+                    child: Text('Previous',
                     style: TextStyle(fontSize: 20),),
                   )
 
@@ -66,7 +60,6 @@ class _TabbarState extends State<Tabbar> {
             )
           ],
         ),
-      ),
-    );
+      ));
   }
 }

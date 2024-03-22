@@ -105,6 +105,7 @@ class _Teacher_AddState extends State<Teacher_Add> {
             height: 50,
             width: 350,
             child: TextFormField(
+              maxLines: 10,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -126,9 +127,10 @@ class _Teacher_AddState extends State<Teacher_Add> {
                          ),
              ),
             SizedBox(
-            height: 230,
+            height: 200,
             width: 350,
             child: TextFormField(
+              maxLines: 10,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -140,20 +142,23 @@ class _Teacher_AddState extends State<Teacher_Add> {
             )),
             InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Tabbar1(),));
+                Navigator.pop(context);
               },
-              child: Container(
-                width: 350,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10)
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 350,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Center(child: Text('Submit',style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17),
+                    )),
                 ),
-                child: Center(child: Text('Submit',style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17),
-                  )),
               ),
             )
             

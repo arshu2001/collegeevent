@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:school_events/teacher/teacher_addevent.dart';
+import 'package:school_events/teacher/teacherevent_details1.dart';
 
 class Teacher_Upcoming extends StatefulWidget {
   const Teacher_Upcoming({super.key});
@@ -20,22 +21,27 @@ class _Teacher_UpcomingState extends State<Teacher_Upcoming> {
             padding: const EdgeInsets.only(left: 25,top: 10),
             child: Row(
               children: [
-                Container(
-                  height: 55,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    color: Colors.blue[600],
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 50,top: 15),
-                    child: Text('food festival',
-                    style: TextStyle(fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Teacher_Details1(),));
+                  },
+                  child: Container(
+                    height: 55,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[600],
+                      borderRadius: BorderRadius.circular(10)
                     ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 50,top: 15),
+                      child: Text('food festival',
+                      style: TextStyle(fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  
                   ),
-                
                 ),
               ],
             ),

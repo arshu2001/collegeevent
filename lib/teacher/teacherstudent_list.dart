@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:school_events/teacher/teacher_notification.dart';
+import 'package:school_events/teacher/teacher_profile.dart';
 import 'package:school_events/teacher/teacherstudent_detail.dart';
 
 class Teacher_List extends StatefulWidget {
@@ -22,11 +24,12 @@ class _Teacher_ListState extends State<Teacher_List> {
         ),
         actions: [
           IconButton(onPressed: () {
-            
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Teacher_Profile(),));
           }, icon: Icon(Icons.person_3_outlined)),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: IconButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Teacher_Notification(),));
           
             }, icon: Icon(Icons.notifications_active)),
           )
