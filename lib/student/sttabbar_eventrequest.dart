@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_events/student/student_event.dart';
 import 'package:school_events/student/student_eventrequest.dart';
+import 'package:school_events/student/student_natification.dart';
+import 'package:school_events/student/student_profile.dart';
 
 class TabbarEventRequest extends StatefulWidget {
   const TabbarEventRequest({super.key});
@@ -22,12 +24,12 @@ class _TabbarEventRequestState extends State<TabbarEventRequest> {
           )),
           actions: [
           IconButton(onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => StudentProfiile(),));
           }, icon: Icon(Icons.person_3_outlined)),
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: IconButton(onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => StudentNotification(),));
           
             }, icon: Icon(Icons.notifications_active)),
           )

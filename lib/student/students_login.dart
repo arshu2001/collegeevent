@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_events/student/student_register.dart';
+import 'package:school_events/student/tabbarst_event.dart';
 
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
@@ -63,7 +64,7 @@ class _StudentLoginState extends State<StudentLogin> {
                     borderRadius: BorderRadius.circular(10)
                   ),
                   child: Center(child: TextButton(onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
                   }, child: Text('Login',style: TextStyle(fontWeight: FontWeight.bold),))),
                 ),
               ),

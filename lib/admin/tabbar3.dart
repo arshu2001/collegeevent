@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_events/admin/adminnotification.dart';
 import 'package:school_events/admin/adminrequestst_event.dart';
 import 'package:school_events/admin/adminteacher_request.dart';
 
@@ -16,7 +17,10 @@ class _Tabbar3State extends State<Tabbar3> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(automaticallyImplyLeading: false,
-        title: Center(child: Text('Details')),
+        title: Center(child: Text('Request')),
+        actions: [IconButton(onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminNotification(),));
+        }, icon: Icon(Icons.notifications_active_outlined))],
           bottom: TabBar(
             dividerColor: Colors.white,
             labelStyle: TextStyle(fontSize: 20),

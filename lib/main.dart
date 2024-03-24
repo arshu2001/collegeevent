@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:school_events/admin/admin_splash.dart';
+import 'package:school_events/admin/adminstudent_tabbar.dart';
+import 'package:school_events/admin/adminteacher_tabbar.dart';
 import 'package:school_events/student/students_login.dart';
 import 'package:school_events/teacher/teacher_signin.dart';
 import 'package:school_events/teacher/teacher_splash.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const StudentLogin(),
+      home: const Admin_Splash(),
     );
   }
 }

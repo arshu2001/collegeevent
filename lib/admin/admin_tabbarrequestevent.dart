@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:school_events/student/sttabbar_eventrequest.dart';
-import 'package:school_events/student/student_previousevent.dart';
+import 'package:school_events/admin/admintabbar_upcomingprevious.dart';
+import 'package:school_events/admin/tabbar3.dart';
 
-class TabbarStEvent extends StatefulWidget {
-  const TabbarStEvent({super.key});
+class AdminTabbarRequestEvent extends StatefulWidget {
+  const AdminTabbarRequestEvent({super.key});
 
   @override
-  State<TabbarStEvent> createState() => _TabbarStEventState();
+  State<AdminTabbarRequestEvent> createState() => _AdminTabbarRequestEventState();
 }
 
-class _TabbarStEventState extends State<TabbarStEvent> {
+class _AdminTabbarRequestEventState extends State<AdminTabbarRequestEvent> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,8 +22,8 @@ class _TabbarStEventState extends State<TabbarStEvent> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                    TabbarEventRequest(),
-                    StudentPreviousEvent()
+                    Tabbar3(),
+                    AdminTabbarUpcomingPrevious()
                     
                     
                   ]),
@@ -49,11 +49,11 @@ class _TabbarStEventState extends State<TabbarStEvent> {
                   ),
                   tabs: [
                   Container(
-                    child: Text('Upcoming',
+                    child: Text('Request',
                     style: TextStyle(fontSize: 20),),
                   ),
                   Container(
-                    child: Text('Previous',
+                    child: Text('Event',
                     style: TextStyle(fontSize: 20),),
                   )
 
