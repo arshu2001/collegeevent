@@ -11,7 +11,7 @@ class _AdminAddEventState extends State<AdminAddEvent> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false,
+      appBar: AppBar(automaticallyImplyLeading: true,
         title: Center(
           child: Text('Event')),
       ),
@@ -146,12 +146,12 @@ class _AdminAddEventState extends State<AdminAddEvent> {
                   width: 350,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color.fromRGBO(68, 114, 178, 1),
                     borderRadius: BorderRadius.circular(10)
                   ),
                   child: Center(child: Text('Submit',style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     fontSize: 17),
                     )),
                 ),

@@ -29,7 +29,7 @@ class _StudentPreviousEventPhotoState extends State<StudentPreviousEventPhoto> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 190),
                       child: CircleAvatar(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Color.fromRGBO(68, 114, 178, 1),
                         radius: 30,
                         child: Icon(Icons.add,size: 50,color: Colors.white,),
                       ),

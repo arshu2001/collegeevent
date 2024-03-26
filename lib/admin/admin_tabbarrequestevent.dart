@@ -35,17 +35,19 @@ class _AdminTabbarRequestEventState extends State<AdminTabbarRequestEvent> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(40)
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all()
                 ),
-                width: 380,
-                height: 70,
+                
+                width: 350,
+                height: 67,
                 child: TabBar(
                   labelColor: Colors.white,
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorPadding: EdgeInsets.all(10.0),
                   indicator: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20)
+                    color: Color.fromRGBO(68, 114, 178, 1),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   tabs: [
                   Container(

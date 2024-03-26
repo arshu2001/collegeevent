@@ -25,20 +25,30 @@ class _AdminNotificationState extends State<AdminNotification> {
               height: 158,
               width: 350,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.blue[200]
+                borderRadius: BorderRadius.circular(6),
+                color: Color.fromRGBO(68, 114, 178, 0.2)
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Onam',style: TextStyle(
-                      fontSize: 18
-                    ),),
+                    child: Row(
+                      children: [
+                        Text('Onam',style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(68, 114, 178, 1),
+                        ),),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 250),
+                          child: Icon(Icons.delete_outlined,size: 25,),
+                        )
+                      ],
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(left: 8),
                     child: Text('We are delighted to announce the upcoming Onam Program, a celebration of joy, culture, and togetherness! The college principal has approved the event, and we cant wait to make it a memorable occasion for all.'),
                   )
                 ],
@@ -54,7 +64,7 @@ class _AdminNotificationState extends State<AdminNotification> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AdminAddNotification(),));
                   },
                   child: CircleAvatar(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color.fromRGBO(68, 114, 178, 1),
                     radius: 30,
                     child: Icon(Icons.add,size: 50,color: Colors.white,),
                   ),

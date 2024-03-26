@@ -72,8 +72,8 @@ class _AdminAddNotificationState extends State<AdminAddNotification> {
                   width: 350,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10)
+                    color: Color.fromRGBO(68, 114, 178, 1),
+                    borderRadius: BorderRadius.circular(6)
                   ),
                   child: Center(child: Text('Send',style: TextStyle(
                     color: Colors.white,

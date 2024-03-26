@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
+
 
 class AdminRequestForStudent extends StatefulWidget {
   const AdminRequestForStudent({super.key});
@@ -42,149 +45,90 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Department'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25),
-                        child: Text(':      Bcom'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Request event'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: Text(':      Holi festival'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Date'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 75),
-                        child: Text(':      25/01/2024'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Time'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 73),
-                        child: Text(':      10.00'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Location'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 52),
-                        child: Text(':      collage hall'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20,top: 10),
-                  child: Text('Host',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 18
-                  ),
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 60,
-                    width: 360,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(10)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Department'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text('Request Event'),
                     ),
-                    child: Row(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text('Date'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text('Time'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text('Location'),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [ 
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(':'),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage('images/profile.jpg'),),
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(':'),
                         ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 23,top: 9),
-                              child: Text('Host'),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Text('Department'),
-                            )
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(':'),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(':'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(':'),
+                        )
                       ],
-                    ),
-                  ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Bcom'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text('Food Festival'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text('21/01/2025'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text('10.00 AM'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text('College Ground'),
+                        )
+                      ],
+                    )
+                  ],
                 )
+                
+
               ],
             ),
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20,top: 10),
+                  padding: const EdgeInsets.only(left: 16,top: 20),
                   child: Text('Description  :',style: TextStyle(
                     fontSize: 20
                   ),),
@@ -204,7 +148,7 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 100),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -213,14 +157,14 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      width: 150,
+                      width: 165,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10)
+                        color: Color.fromRGBO(68, 114, 178, 1),
+                        borderRadius: BorderRadius.circular(6)
                       ),
                       child: Center(child: Text('Accept',style: TextStyle(
-                        color: Colors.white,
+                        color:Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 17),
                         )),
@@ -231,11 +175,11 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      width: 150,
+                      width: 165,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10)
+                        color: Color.fromRGBO(68, 114, 178, 1),
+                        borderRadius: BorderRadius.circular(6)
                       ),
                       child: Center(child: Text('Reject',style: TextStyle(
                         color: Colors.white,

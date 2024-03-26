@@ -27,18 +27,18 @@ class _AdminEventUpcomingState extends State<AdminEventUpcoming> {
                     height: 55,
                     width: 350,
                     decoration: BoxDecoration(
-                      color: Colors.blue[600],
-                      borderRadius: BorderRadius.circular(10)
+                      color: Color.fromRGBO(68, 114, 178, 1),
+                      borderRadius: BorderRadius.circular(6)
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 7),
+                      padding: const EdgeInsets.only(left: 40,top: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('food festival',
-                          style: TextStyle(fontSize: 20,
+                          style: TextStyle(fontSize: 18,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w500),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
@@ -61,18 +61,18 @@ class _AdminEventUpcomingState extends State<AdminEventUpcoming> {
                   height: 55,
                   width: 350,
                   decoration: BoxDecoration(
-                    color: Colors.blue[600],
-                    borderRadius: BorderRadius.circular(10)
+                    color: Color.fromRGBO(68, 114, 178, 1),
+                    borderRadius: BorderRadius.circular(6)
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20,top: 7),
+                    padding: const EdgeInsets.only(left: 40,top: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Chrismas',
-                        style: TextStyle(fontSize: 20,
+                        style: TextStyle(fontSize: 18,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w500),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
@@ -94,18 +94,18 @@ class _AdminEventUpcomingState extends State<AdminEventUpcoming> {
                   height: 55,
                   width: 350,
                   decoration: BoxDecoration(
-                    color: Colors.blue[600],
-                    borderRadius: BorderRadius.circular(10)
+                    color: Color.fromRGBO(68, 114, 178, 1),
+                    borderRadius: BorderRadius.circular(6)
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20,top: 7),
+                    padding: const EdgeInsets.only(left: 40,top: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Musical Festival',
-                        style: TextStyle(fontSize: 20,
+                        style: TextStyle(fontSize: 18,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w500),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
@@ -128,7 +128,7 @@ class _AdminEventUpcomingState extends State<AdminEventUpcoming> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AdminAddEvent(),));
                   },
                   child: CircleAvatar(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color.fromRGBO(68, 114, 178, 1),
                     radius: 30,
                     child: Icon(Icons.add,size: 50,color: Colors.white,),
                   ),

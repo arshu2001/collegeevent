@@ -20,7 +20,7 @@ class _Admin_RequestState extends State<Admin_Request> {
               width: 200,
               height: 70,
               decoration: BoxDecoration(
-                color: Colors.blue[100],
+                color: Color.fromRGBO(241, 246, 255, 1),
                 borderRadius: BorderRadius.circular(10)
               ),
               child: ListTile(

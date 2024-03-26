@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,9 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Event Details')),
+        title: Center(child: Text('Event Details',style: TextStyle(
+          fontWeight: FontWeight.w500
+        ),)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -25,9 +29,67 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                 children: [
                   Text('Food Festival',
                   style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.blue
+                    fontSize: 22,
+                    color: Color.fromRGBO(68, 114, 178, 1)
                   ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Date'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text('Time'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text('Location'),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(':'),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Text(':'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Text(':'),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('05/09/2025'),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Text('9.00 AM'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Text('College Groung'),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
                   )
                 ],
               ),
@@ -35,63 +97,9 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 20),
-                  child: Row(
-                    children: [
-                      Text('Date'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 75),
-                        child: Text(':      05/09/2025'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Time'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 73),
-                        child: Text(':      09.00 AM'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Location'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 52),
-                        child: Text(':      collage Groung'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20,top: 10),
+                  padding: const EdgeInsets.only(left: 16,top: 10),
                   child: Text('Description  :',style: TextStyle(
-                    fontSize: 20
+                    fontSize: 22
                   ),),
                 )
               ],
@@ -114,8 +122,8 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                   padding: const EdgeInsets.only(left: 20,top: 10),
                   child: Text('Host',
                   style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 18
+                    color: Color.fromRGBO(68, 114, 178, 1),
+                    fontSize: 22
                   ),
                   ),
                 )
@@ -130,7 +138,7 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                     height: 60,
                     width: 360,
                     decoration: BoxDecoration(
-                      color: Colors.blue[100],
+                      color: Color.fromRGBO(68, 114, 178, 0.2),
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Row(
@@ -143,8 +151,8 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 23,top: 9),
-                              child: Text('Host'),
+                              padding: const EdgeInsets.only(right: 20,top: 9),
+                              child: Text('Name'),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
@@ -166,7 +174,7 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                     padding: const EdgeInsets.only(left: 16),
                     child: Text('Add Host',style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 18
+                      fontSize: 20
                     ),),
                   )
                 ],
@@ -201,8 +209,8 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                     width: 350,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(10)
+                      color: Color.fromRGBO(68, 114, 178, 1),
+                      borderRadius: BorderRadius.circular(6)
                     ),
                     child: Center(child: Text('Add Host',style: TextStyle(
                       color: Colors.white,
@@ -220,8 +228,8 @@ class _AdminEventUpcomingDetailsState extends State<AdminEventUpcomingDetails> {
                         width: 350,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10)
+                          color: Color.fromRGBO(68, 114, 178, 1),
+                          borderRadius: BorderRadius.circular(6)
                         ),
                         child: Center(child: Text('Conform',style: TextStyle(
                           color: Colors.white,

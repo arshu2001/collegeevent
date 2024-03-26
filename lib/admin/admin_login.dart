@@ -24,19 +24,24 @@ class _Admin_LoginState extends State<Admin_Login> {
           child: Container(
             height: 350,
             width: 360,
-            color: Colors.grey[200],
+            color: Color.fromRGBO(68, 114, 178, 0.2),
             padding: EdgeInsets.all(10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Login',
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: TextStyle(
+                  color: Color.fromRGBO(68, 114, 178, 1),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500
+                ),
                 ),
                 SizedBox(
                   width: 290,
                   child: TextFormField(
                     obscureText: true,
                     decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.person),
                       hintText: 'Username',
                     ),
                   ),
@@ -48,6 +53,7 @@ class _Admin_LoginState extends State<Admin_Login> {
                     child: TextFormField(
                       obscureText: isHiddenPassword,
                       decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
                         hintText: 'Password',
                         suffixIcon: Icon(
                           Icons.visibility)
@@ -65,10 +71,12 @@ class _Admin_LoginState extends State<Admin_Login> {
                       width: 300,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10)
+                        color: Color.fromRGBO(68, 114, 178, 1),
+                        borderRadius: BorderRadius.circular(6)
                       ),
-                      child: Center(child: Text('Logoin',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),)),
+                      child: Center(child: Text('Logoin',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,
+                      color: Colors.white
+                      ),)),
                       
                     ),
                   ),

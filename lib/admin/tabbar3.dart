@@ -23,8 +23,8 @@ class _Tabbar3State extends State<Tabbar3> {
         }, icon: Icon(Icons.notifications_active_outlined))],
           bottom: TabBar(
             dividerColor: Colors.white,
-            labelStyle: TextStyle(fontSize: 20),
-            labelColor: Colors.blue,
+            labelStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),
+            labelColor: Color.fromRGBO(68, 114, 178, 1),
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             tabs: [

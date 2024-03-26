@@ -26,15 +26,23 @@ class _AdminStudentTabbarState extends State<AdminStudentTabbar> {
                     height: 55,
                     width: 350,
                     decoration: BoxDecoration(
-                      color: Colors.blue[600],
-                      borderRadius: BorderRadius.circular(10)
+                      color: Color.fromRGBO(68, 114, 178, 1),
+                      borderRadius: BorderRadius.circular(6)
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 30,top: 15),
-                      child: Text('Adhil Request Food Festival',
-                      style: TextStyle(fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                      padding: const EdgeInsets.only(left: 15,top: 5),
+                      child: Row(
+                        children: [
+                          CircleAvatar(backgroundImage: AssetImage('images/profile.jpg'),),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text('Adhil Request Food Festival',
+                            style: TextStyle(fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   
@@ -55,15 +63,23 @@ class _AdminStudentTabbarState extends State<AdminStudentTabbar> {
                     height: 55,
                     width: 350,
                     decoration: BoxDecoration(
-                      color: Colors.blue[600],
-                      borderRadius: BorderRadius.circular(10)
+                      color: Color.fromRGBO(68, 114, 178, 1),
+                      borderRadius: BorderRadius.circular(6)
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 30,top: 15),
-                      child: Text('Raja Request Christmas',
-                      style: TextStyle(fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                      padding: const EdgeInsets.only(left: 15,top: 3),
+                      child: Row(
+                        children: [
+                          CircleAvatar(backgroundImage: AssetImage('images/profile.jpg'),),
+                          Padding(
+                            padding: const EdgeInsets.only(left:20),
+                            child: Text('Raja Request Christmas',
+                            style: TextStyle(fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   

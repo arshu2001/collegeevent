@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class AdminPrevious extends StatefulWidget {
@@ -22,126 +24,139 @@ class _AdminPreviousState extends State<AdminPrevious> {
                     height: 110,
                     width: 350,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.blue[100]
+                      borderRadius: BorderRadius.circular(6),
+                      color: Color.fromRGBO(68, 114, 178, 0.2),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(left: 20,top: 10),
                           child: Text('Onam Festival',style: TextStyle(
                             fontSize: 18,
-                            color: Colors.blue
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromRGBO(68, 114, 178, 1),
                           ),),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.only(left: 20),
                           child: Row(
                             children: [
-                              Text('Date'),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 36),
-                                child: Text(':  28/28/2023'),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Date'),
+                                  Text('Time'),
+                                  Text('Location')
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(':'),
+                                      Text(':'),
+                                      Text(':')
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('08/28/2023'),
+                                      Text('9.00 AM'),
+                                      Text('College Hall')
+                                    ],
+                                  )
+                                ],
                               )
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Row(
-                            children: [
-                              Text('Time'),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 34),
-                                child: Text(':  9:00 AM'),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Row(
-                            children: [
-                              Text('Location'),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Text(':  Collage Hall'),
-                              )
-                            ],
-                          ),
-                        ),
+
+
                           
                       ],
                     ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
+               Padding(
+                 padding: const EdgeInsets.only(top: 20),
+                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: 110,
                       width: 350,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue[100]
+                        borderRadius: BorderRadius.circular(6),
+                        color: Color.fromRGBO(68, 114, 178, 0.2),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left: 20,top: 10),
                             child: Text('Music Festival',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(68, 114, 178, 1),
                             ),),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.only(left: 20),
                             child: Row(
                               children: [
-                                Text('Date'),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 36),
-                                  child: Text(':  26/04/2023'),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Date'),
+                                    Text('Time'),
+                                    Text('Location')
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(':'),
+                                        Text(':'),
+                                        Text(':')
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('26/04/2023'),
+                                        Text('6.00 PM'),
+                                        Text('College Hall')
+                                      ],
+                                    )
+                                  ],
                                 )
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                Text('Time'),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 34),
-                                  child: Text(':  6:00 AM'),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                Text('Location'),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(':  Collage Hall'),
-                                )
-                              ],
-                            ),
-                          ),
+                 
+                 
                             
                         ],
                       ),
                     ),
                   ],
-                ),
-              ),
+                               ),
+               ),
+             
           ],
         ),
       ),
