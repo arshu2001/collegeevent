@@ -1,15 +1,19 @@
 // ignore_for_file: unused_import
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:school_events/admin/admin_splash.dart';
 import 'package:school_events/admin/adminstudent_tabbar.dart';
 import 'package:school_events/admin/adminteacher_tabbar.dart';
+import 'package:school_events/firebase_options.dart';
 import 'package:school_events/home1.dart';
 import 'package:school_events/student/students_login.dart';
 import 'package:school_events/teacher/teacher_signin.dart';
 import 'package:school_events/teacher/teacher_splash.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 

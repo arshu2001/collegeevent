@@ -1,7 +1,10 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:school_events/teacher/tabbar.dart';
+import 'package:school_events/teacher/teacher_signin.dart';
 import 'package:school_events/teacher/teacherstudent_list.dart';
 
 class Teacher_Registration extends StatefulWidget {
@@ -12,6 +15,12 @@ class Teacher_Registration extends StatefulWidget {
 }
 
 class _Teacher_RegistrationState extends State<Teacher_Registration> {
+  final formKey= GlobalKey<FormState>();
+  var name = TextEditingController();
+  var department = TextEditingController();
+  var phone = TextEditingController();
+  var email = TextEditingController();
+  var Password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,136 +33,189 @@ class _Teacher_RegistrationState extends State<Teacher_Registration> {
             ),
         ),
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25),
-                child: Text('Name'),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
+      body: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Text('Name'),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              height: 50,
+              child: TextFormField(
+                controller: name,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  )
+                ),
+                validator: (value) {
+                  if(value?.isEmpty ?? true){
+                    return 'please enter name';
+                  }
+                },
               ),
             ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25,top: 25),
-                child: Text('Department'),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,top: 25),
+                  child: Text('Department'),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              height: 50,
+              child: TextFormField(
+                controller: department,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  )
+                ),
+                validator: (value) {
+                  if(value?.isEmpty ?? true){
+                    return 'please enter department';
+                  }
+                },
               ),
             ),
-          ),
-           Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25,top: 25),
-                child: Text('Phone No'),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
+             Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,top: 25),
+                  child: Text('Phone No'),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              height: 50,
+              child: TextFormField(
+                controller: phone,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  )
+                ),
+                validator: (value) {
+                  if(value?.isEmpty ?? true){
+                    return 'please enter phone number';
+                  }
+                },
               ),
             ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25,top: 25),
-                child: Text('Email'),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,top: 25),
+                  child: Text('Email'),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              height: 50,
+              child: TextFormField(
+                controller: email,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  )
+                ),
+                validator: (value) {
+                  if(value?.isEmpty ?? true){
+                    return 'feild is empty';
+                  }
+                },
               ),
             ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25,top: 25),
-                child: Text('Password'),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,top: 25),
+                  child: Text('Password'),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              height: 50,
+              child: TextFormField(
+                controller: Password,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5)
+                  )
+                ),
+                validator: (value) {
+                  if(value?.isEmpty ?? true){
+                    return 'feild is empty';
+                  }
+                },
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 150),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Tabbar(),));
-              },
-              child: Container(
-                width: 350,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10)
+            Padding(
+              padding: const EdgeInsets.only(top: 150),
+              child: InkWell(
+                onTap: () async{
+                  
+                  if(formKey.currentState?.validate() ?? false){
+                    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text, password: Password.text);
+                    if(userCredential.user!=null){
+                      await FirebaseFirestore.instance.collection('Teacher Data').doc(userCredential.user!.uid).set(
+                        {
+                          'Name':name.text,
+                          'Depatment':department.text,
+                          'Phone':phone.text,
+                          'Email':email.text,
+                          'Password':Password.text
+
+                        }
+                      );
+                    }
+
+                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => Tabbar(),)); 
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Teacher_Sign(),)); 
+                    }
+                },
+                child: Container(
+                  width: 350,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(6)
+                  ),
+                  child: Center(child: Text('Submit',style: TextStyle(color: Colors.white,
+                  fontWeight: FontWeight.w500
+                  ),)),
                 ),
-                child: Center(child: Text('Submit',style: TextStyle(color: Colors.white),)),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

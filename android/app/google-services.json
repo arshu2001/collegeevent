@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "793575276940",
+    "project_id": "schoolevet",
+    "storage_bucket": "schoolevet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793575276940:android:09f87b94048c30dd9116a9",
+        "android_client_info": {
+          "package_name": "com.example.school_events"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-jEyu_OvpWzf6wQ4SOcvwD7uhlmlbWPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

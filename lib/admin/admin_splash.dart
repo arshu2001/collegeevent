@@ -19,7 +19,7 @@ class _Admin_SplashState extends State<Admin_Splash> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => Admin_Login(),));
           },
           child: Container(
-            color: Colors.blue[500],
+            color: Color.fromRGBO(68, 114, 178, 1),
             child: Center(
               child: Text('ColleagueApp',style: TextStyle(
                 color: Colors.white,fontWeight: FontWeight.w700,fontSize: 40
