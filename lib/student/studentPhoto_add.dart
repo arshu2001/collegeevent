@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +14,23 @@ class StudentPhotoAdd extends StatefulWidget {
 class _StudentPhotoAddState extends State<StudentPhotoAdd> {
   XFile? pick;
   File? image;
+  Future<void> Photoadd()async{
+    if(image!= null){
+      try {
+        final ref = FirebaseStorage.instance
+        .ref()
+        .child('Photo_add')
+        .child(DateTime.now().microsecondsSinceEpoch.toString());
+       await ref.putFile(image!);
+       final imageurl = await ref.getDownloadURL();
+      //  Navigator.push(context, MaterialPageRoute(builder: (context) => ,)) ;
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error'))
+        );
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
         return Scaffold(

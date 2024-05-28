@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:school_events/forgot/tchforgot.dart';
 import 'package:school_events/teacher/tabbar.dart';
 import 'package:school_events/teacher/teacher_registration.dart';
 import 'package:school_events/teacher/teacher_splash.dart';
@@ -175,6 +176,12 @@ class _Teacher_SignState extends State<Teacher_Sign> {
                           ))
                           )
                     ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TchForgot(),));
+                    }, child: Text('Forgot Password')),
                   )
                 ],
               ),
