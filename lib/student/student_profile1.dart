@@ -1,21 +1,45 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:school_events/student/student_profile1.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:school_events/student/student_profile.dart';
 
-class StudentProfiile extends StatefulWidget {
-  File? image;
-  StudentProfiile({super.key, this.image});
+class StudentProfile1 extends StatefulWidget {
+  const StudentProfile1({super.key});
 
   @override
-  State<StudentProfiile> createState() => _StudentProfiileState();
+  State<StudentProfile1> createState() => _StudentProfile1State();
 }
 
-class _StudentProfiileState extends State<StudentProfiile> {
+class _StudentProfile1State extends State<StudentProfile1> {
+  XFile? pick;
+  File? image;
+  Future<void> ProfileImg()async{
+    if(image!=null){
+      try {
+        final reff = FirebaseStorage.instance
+        .ref()
+        .child('profile')
+        .child(DateTime.now().microsecondsSinceEpoch.toString());
+        await reff.putFile(image!);
+        final imageurl = await reff.getDownloadURL();
+        Navigator.push(context, MaterialPageRoute(builder: (context) => StudentProfiile(image:image),));
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: 
+                              Text('error'),
+        ));
+
+      }
+    }
+  }
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(automaticallyImplyLeading: false,
+      appBar: AppBar(automaticallyImplyLeading: false,
         title: Center(child: Text('Profile',
         style: TextStyle(
           fontWeight: FontWeight.bold
@@ -30,11 +54,31 @@ class _StudentProfiileState extends State<StudentProfiile> {
               mainAxisAlignment: MainAxisAlignment
               .center,
               children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: widget.image != null? FileImage(widget.image!):null,
-                  // child: widget.image == null? Icon(Icons.person,size: 50,):null,
-                  ),
+                // CircleAvatar(
+                //   radius: 50,
+                //   backgroundImage: AssetImage('images/profile.jpg'),),
+                InkWell(
+                  onTap: () async{
+                    ImagePicker Picked = ImagePicker();
+                pick = await Picked.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  image = File(pick!.path);
+                });
+                  },
+                  child:CircleAvatar(
+                    radius: 50,
+                    backgroundImage: image != null? FileImage(image!):null,
+                    child: image == null? Icon(Icons.person,size: 50,):null,
+                    
+                    
+                  )
+                  //
+                  // ClipRRect(
+                  //   borderRadius: BorderRadius.circular(100),
+                  //   child: image == null?
+                  //   Image.asset('images/profile.jpg',width: 100,):Image.file(image!,width: 130,)
+                  // ),
+                )
               ],
             ),
           ),
@@ -169,21 +213,17 @@ class _StudentProfiileState extends State<StudentProfiile> {
                children: [
                  InkWell(
                   onTap: () {
+                    ProfileImg();
                     Navigator.pop(context);
                   },
-                   child: InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => StudentProfile1(),));
-                    },
-                     child: Container(
-                       width: 350,
-                       height: 50,
-                       decoration: BoxDecoration(
-                         color: Colors.blue,
-                         borderRadius: BorderRadius.circular(10)
-                       ),
-                       child: Center(child: Text('Edit',style: TextStyle(color: Colors.white,fontSize: 20),)),
+                   child: Container(
+                     width: 350,
+                     height: 50,
+                     decoration: BoxDecoration(
+                       color: Colors.blue,
+                       borderRadius: BorderRadius.circular(10)
                      ),
+                     child: Center(child: Text('Submit',style: TextStyle(color: Colors.white),)),
                    ),
                  ),
                ],

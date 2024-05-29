@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:school_events/student/studentpreviousevent_photo.dart';
 
 class StudentPhotoAdd extends StatefulWidget {
   const StudentPhotoAdd({super.key});
@@ -23,7 +24,7 @@ class _StudentPhotoAddState extends State<StudentPhotoAdd> {
         .child(DateTime.now().microsecondsSinceEpoch.toString());
        await ref.putFile(image!);
        final imageurl = await ref.getDownloadURL();
-      //  Navigator.push(context, MaterialPageRoute(builder: (context) => ,)) ;
+       Navigator.push(context, MaterialPageRoute(builder: (context) => StudentPreviousEventPhoto(),)) ;
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error'))
@@ -64,7 +65,11 @@ class _StudentPhotoAddState extends State<StudentPhotoAdd> {
                   image = File(pick!.path);
                 });
 
-              }, icon: image == null ? Image.asset('images/add-image.png',width: 200,color: Color(0xffb4466b2).withOpacity(0.4),): Image.file(image!) ),
+              },
+               icon: image == null ? Image.asset('images/add-image.png',width: 200,color: Color(0xffb4466b2).withOpacity(0.4),): Image.file(image!)
+              // icon: image != null? FileImage(image!):null;,
+              
+               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
@@ -87,7 +92,7 @@ class _StudentPhotoAddState extends State<StudentPhotoAdd> {
                 child: FloatingActionButton(
                   backgroundColor: const Color.fromARGB(255, 60, 97, 162),
                   onPressed: () {
-                     
+                     Photoadd();
                   },
                   child: Text(
                     'Send',
