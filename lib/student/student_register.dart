@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:school_events/student/students_login.dart';
 import 'package:school_events/student/tabbarst_event.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentRegister extends StatefulWidget {
   const StudentRegister({super.key});
@@ -210,8 +211,9 @@ class _StudentRegisterState extends State<StudentRegister> {
                   onTap: () async{
                     if(formKey.currentState?.validate() ?? false){
                       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text, password: Password.text);
+                      String uid = userCredential.user!.uid;
                       if(userCredential.user!=null){
-                        await FirebaseFirestore.instance.collection('student data').doc(userCredential.user!.uid).set(
+                        await FirebaseFirestore.instance.collection('student data').doc(uid).set(
                           {
                             'Name':name.text,
                             'Depatment':department.text,
@@ -221,6 +223,13 @@ class _StudentRegisterState extends State<StudentRegister> {
                             'Password':Password.text
                           }
                         );
+                        SharedPreferences spref = await SharedPreferences.getInstance();
+                        await spref.setString('uid', uid);
+                        await spref.setString('Name', name.text);
+                        await spref.setString('Depatment', department.text);
+                        await spref.setString('Register', registerno.text);
+                        await spref.setString('Phone', phone.text);
+                        await spref.setString('Email', email.text);
                       }
                         Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
                     }

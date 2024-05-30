@@ -1,7 +1,10 @@
+// import 'dart:html';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:school_events/student/student_profile1.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentProfiile extends StatefulWidget {
   File? image;
@@ -12,6 +15,40 @@ class StudentProfiile extends StatefulWidget {
 }
 
 class _StudentProfiileState extends State<StudentProfiile> {
+  Future<void> fetchStudentDetails()async{
+    try {
+      SharedPreferences spref = await SharedPreferences.getInstance();
+      String? uid = spref.getString('studentId');
+      print('Shared Preference Student Id : $uid');
+
+      if(uid!.isNotEmpty){
+        Stream<DocumentSnapshot> studentStream = FirebaseFirestore.instance
+        .collection('student data')
+        .doc(uid)
+        .snapshots();
+
+        studentStream.listen((studentSnapshot) { 
+          if(studentSnapshot.exists){
+            setState(() {
+              name.text = studentSnapshot['Name'] ?? '';
+              department.text = studentSnapshot['Depatment'] ?? '';
+              register.text = studentSnapshot['Register'] ?? '';
+              email.text = studentSnapshot['Email'] ?? '';
+              phone.text = studentSnapshot['Phone'] ?? '';
+
+            });
+          }
+        });
+      }
+    } catch (e) {
+      print('error');
+    }
+  }
+  var name = TextEditingController();
+  var department = TextEditingController();
+  var register = TextEditingController();
+  var email = TextEditingController();
+  var phone = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +90,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: name,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -78,6 +116,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: department,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -103,6 +142,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: register,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -128,6 +168,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: phone,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -153,6 +194,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: email,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
