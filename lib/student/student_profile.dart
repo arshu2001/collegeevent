@@ -15,10 +15,15 @@ class StudentProfiile extends StatefulWidget {
 }
 
 class _StudentProfiileState extends State<StudentProfiile> {
+   final TextEditingController name = TextEditingController();
+   final TextEditingController department = TextEditingController();
+  final TextEditingController register = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController phone = TextEditingController();
   Future<void> fetchStudentDetails()async{
     try {
       SharedPreferences spref = await SharedPreferences.getInstance();
-      String? uid = spref.getString('studentId');
+      String? uid = spref.getString('stdId');
       print('Shared Preference Student Id : $uid');
 
       if(uid!.isNotEmpty){
@@ -41,14 +46,15 @@ class _StudentProfiileState extends State<StudentProfiile> {
         });
       }
     } catch (e) {
-      print('error');
+      print('error:$e');
+      return null;
     }
   }
-  var name = TextEditingController();
-  var department = TextEditingController();
-  var register = TextEditingController();
-  var email = TextEditingController();
-  var phone = TextEditingController();
+  void initState() {
+    super.initState();
+    fetchStudentDetails();
+  }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +64,9 @@ class _StudentProfiileState extends State<StudentProfiile> {
           fontWeight: FontWeight.bold
         ),
         )),
+        actions: [
+          
+        ],
       ),
       body: Column(
         children: [
@@ -215,6 +224,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
                   },
                    child: InkWell(
                     onTap: () {
+                      fetchStudentDetails();
                       Navigator.push(context, MaterialPageRoute(builder: (context) => StudentProfile1(),));
                     },
                      child: Container(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:school_events/forgot/stdforgot.dart';
 import 'package:school_events/student/student_register.dart';
 import 'package:school_events/student/tabbarst_event.dart';
@@ -18,12 +19,71 @@ class _StudentLoginState extends State<StudentLogin> {
   var email = TextEditingController();
   var password = TextEditingController();
 
-  Future<void>studentdata(String data) async{
-    SharedPreferences std = await SharedPreferences.getInstance();
-    await std.setString('studentId', data);
-  }
+  
   @override
   Widget build(BuildContext context) {
+    Future<void>studentlogin()async{
+      if(formkey.currentState!.validate()){
+        String email1 =email.text.trim();
+        String password1 = password.text.trim();
+        var querySnapshot = await FirebaseFirestore.instance
+        .collection('student data')
+        .where('Email',isEqualTo: email1)
+        .limit(1)
+        .get();
+        if(querySnapshot.docs.isNotEmpty){
+          var userData = querySnapshot.docs.first.data();
+          if(userData['Password'] == password1){
+            var storeId = userData['stdId'];
+            if(storeId != null){
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              await pref.setString('stdId', storeId);
+            }  
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            String? stdId = pref.getString('stdId');
+            print('student Id: $stdId');
+            
+              email.clear();
+              password.clear();
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
+
+            Fluttertoast.showToast(
+            msg: 'Succesfully loggined',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+            }else{
+              print('Incorrect password');
+              Fluttertoast.showToast(
+              msg: 'Incorrect password',
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0,
+        );
+            }
+          }else{
+            print('User not Fount');
+            Fluttertoast.showToast(
+            msg: 'User Not Found',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+        );
+          
+        }
+      }
+    }
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -84,28 +144,8 @@ class _StudentLoginState extends State<StudentLogin> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    child: Center(child: TextButton(onPressed: () async{
-                    if(formkey.currentState?.validate() ?? false){
-                       String email1 = email.text.trim(); 
-                       String password1 = password.text.trim();
-                       var querysnap = await FirebaseFirestore
-                       .instance.collection('student data')
-                       .where('Email',isEqualTo: email1)
-                       .limit(1)
-                       .get();
-
-
-                    if(querysnap.docs.isNotEmpty){
-                      var stddata = querysnap.docs.first.data();
-                      if(stddata['Password'] == password1){
-                        var studentId = stddata['studentId'] as String?;
-                        if(studentId != null){
-                          await studentdata(studentId);
-                        }
-                         Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
-                      }
-                    }
-                    }
+                    child: Center(child: TextButton(onPressed: () {
+                      studentlogin();
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
                     }, child: Text('Login',style: TextStyle(fontWeight: FontWeight.bold),))),
                   ),

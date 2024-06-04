@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:school_events/student/students_login.dart';
 import 'package:school_events/student/tabbarst_event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -210,7 +211,9 @@ class _StudentRegisterState extends State<StudentRegister> {
                 child: InkWell(
                   onTap: () async{
                     if(formKey.currentState?.validate() ?? false){
-                      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text, password: Password.text);
+                      UserCredential userCredential = await FirebaseAuth
+                      .instance
+                      .createUserWithEmailAndPassword(email: email.text, password: Password.text);
                       String uid = userCredential.user!.uid;
                       if(userCredential.user!=null){
                         await FirebaseFirestore.instance.collection('student data').doc(uid).set(
@@ -220,16 +223,12 @@ class _StudentRegisterState extends State<StudentRegister> {
                             'Register' :registerno.text,
                             'Phone':phone.text,
                             'Email':email.text,
-                            'Password':Password.text
+                            'Password':Password.text,
+                            'stdId':uid
                           }
                         );
-                        SharedPreferences spref = await SharedPreferences.getInstance();
-                        await spref.setString('uid', uid);
-                        await spref.setString('Name', name.text);
-                        await spref.setString('Depatment', department.text);
-                        await spref.setString('Register', registerno.text);
-                        await spref.setString('Phone', phone.text);
-                        await spref.setString('Email', email.text);
+                        Fluttertoast.showToast(msg: "regisration succussfully");
+                       
                       }
                         Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
                     }

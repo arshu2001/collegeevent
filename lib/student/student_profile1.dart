@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:school_events/student/student_profile.dart';
+import 'package:school_events/student/tabbarst_event.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentProfile1 extends StatefulWidget {
   const StudentProfile1({super.key});
@@ -13,6 +17,11 @@ class StudentProfile1 extends StatefulWidget {
 }
 
 class _StudentProfile1State extends State<StudentProfile1> {
+  var name=TextEditingController();
+  var department=TextEditingController();
+  var register=TextEditingController();
+  var phonenumber=TextEditingController();
+  var email=TextEditingController();
   XFile? pick;
   File? image;
   Future<void> ProfileImg()async{
@@ -33,6 +42,59 @@ class _StudentProfile1State extends State<StudentProfile1> {
         ));
 
       }
+    }
+  }
+  Future<void>setstudentdetails()async{
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? uid = pref.getString('stdId');
+      print('student Id: $uid');
+
+      if(uid!.isNotEmpty){
+        Stream<DocumentSnapshot> studentStream = FirebaseFirestore.instance.collection('student data').doc(uid).snapshots();
+        studentStream.listen((studentSnapshot) { 
+          if(studentSnapshot.exists){
+            setState(() {
+              name.text = studentSnapshot['Name'] ?? '';
+              department.text = studentSnapshot['Depatment'] ?? '';
+              register.text = studentSnapshot['Register'] ?? '';
+              email.text = studentSnapshot['Email'] ?? '';
+              phonenumber.text = studentSnapshot['Phone'] ?? '';
+            });
+          }
+        });
+      }
+    } catch (e) {
+      print('error:$e');
+    }
+  }
+   void initState() {
+    super.initState();
+    setstudentdetails();
+  }
+  Future<void>editstudentprofile()async{
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? uid = pref.getString('stdId');
+      if(uid!=null){
+        await FirebaseFirestore.instance.collection('student data').doc(uid).update({
+          'Name':name.text,
+          'Depatment':department.text,
+          'Register' :register.text,
+          'Phone':phonenumber.text,
+          'Email':email.text,
+        });
+        await pref.setString('Name',name.text);
+        await pref.setString('Department', department.text);
+        await pref.setString('Register', register.text);
+        await pref.setString('Phone', phonenumber.text);
+        await pref.setString('Email', email.text);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile Updated')));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
+      }
+    } catch (e) {
+      
     }
   }
   @override
@@ -97,6 +159,7 @@ class _StudentProfile1State extends State<StudentProfile1> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: name,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -122,6 +185,7 @@ class _StudentProfile1State extends State<StudentProfile1> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: department,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -147,6 +211,7 @@ class _StudentProfile1State extends State<StudentProfile1> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: register,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -172,6 +237,7 @@ class _StudentProfile1State extends State<StudentProfile1> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: phonenumber,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -197,6 +263,7 @@ class _StudentProfile1State extends State<StudentProfile1> {
             width: 350,
             height: 50,
             child: TextFormField(
+              controller: email,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5)
@@ -214,7 +281,8 @@ class _StudentProfile1State extends State<StudentProfile1> {
                  InkWell(
                   onTap: () {
                     ProfileImg();
-                    Navigator.pop(context);
+                    editstudentprofile();
+                    // Navigator.pop(context);
                   },
                    child: Container(
                      width: 350,
