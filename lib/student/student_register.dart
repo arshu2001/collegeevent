@@ -230,7 +230,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                         Fluttertoast.showToast(msg: "regisration succussfully");
                        
                       }
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => StudentLogin(),));
                     }
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
                   },

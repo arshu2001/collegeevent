@@ -1,304 +1,292 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:school_events/student/student_profile.dart';
-import 'package:school_events/student/tabbarst_event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentProfile1 extends StatefulWidget {
-  const StudentProfile1({super.key});
+  StudentProfile1({super.key});
 
   @override
   State<StudentProfile1> createState() => _StudentProfile1State();
 }
 
 class _StudentProfile1State extends State<StudentProfile1> {
-  var name=TextEditingController();
-  var department=TextEditingController();
-  var register=TextEditingController();
-  var phonenumber=TextEditingController();
-  var email=TextEditingController();
-  XFile? pick;
+  var name = TextEditingController();
+  var department = TextEditingController();
+  var phonenumber = TextEditingController();
+  var email = TextEditingController();
+  var register = TextEditingController();
   File? image;
-  Future<void> ProfileImg()async{
-    if(image!=null){
-      try {
-        final reff = FirebaseStorage.instance
-        .ref()
-        .child('profile')
-        .child(DateTime.now().microsecondsSinceEpoch.toString());
-        await reff.putFile(image!);
-        final imageurl = await reff.getDownloadURL();
-        Navigator.push(context, MaterialPageRoute(builder: (context) => StudentProfiile(image:image),));
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: 
-                              Text('error'),
-        ));
+  String? imageurl;
 
-      }
-    }
-  }
-  Future<void>setstudentdetails()async{
+  Future<void> setuserdetails() async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       String? uid = pref.getString('stdId');
-      print('student Id: $uid');
-
-      if(uid!.isNotEmpty){
-        Stream<DocumentSnapshot> studentStream = FirebaseFirestore.instance.collection('student data').doc(uid).snapshots();
-        studentStream.listen((studentSnapshot) { 
-          if(studentSnapshot.exists){
+      print('student id:$uid');
+      if (uid!.isNotEmpty) {
+        Stream<DocumentSnapshot> studentstream = FirebaseFirestore.instance
+            .collection('student data')
+            .doc(uid)
+            .snapshots();
+        studentstream.listen((studentsnapshot) {
+          if (studentsnapshot.exists) {
             setState(() {
-              name.text = studentSnapshot['Name'] ?? '';
-              department.text = studentSnapshot['Depatment'] ?? '';
-              register.text = studentSnapshot['Register'] ?? '';
-              email.text = studentSnapshot['Email'] ?? '';
-              phonenumber.text = studentSnapshot['Phone'] ?? '';
+              name.text = studentsnapshot['Name'] ?? '';
+              department.text = studentsnapshot['Depatment'] ?? '';
+              phonenumber.text = studentsnapshot['Phone'] ?? '';
+              email.text = studentsnapshot['Email'] ?? '';
+              register.text = studentsnapshot['Register'] ?? '';
+              imageurl = studentsnapshot['imageurl'] ?? '';
             });
           }
         });
       }
     } catch (e) {
-      print('error:$e');
+      print('error fetching student details:$e');
     }
   }
-   void initState() {
-    super.initState();
-    setstudentdetails();
-  }
-  Future<void>editstudentprofile()async{
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? uid = pref.getString('stdId');
-      if(uid!=null){
-        await FirebaseFirestore.instance.collection('student data').doc(uid).update({
-          'Name':name.text,
-          'Depatment':department.text,
-          'Register' :register.text,
-          'Phone':phonenumber.text,
-          'Email':email.text,
-        });
-        await pref.setString('Name',name.text);
-        await pref.setString('Department', department.text);
-        await pref.setString('Register', register.text);
-        await pref.setString('Phone', phonenumber.text);
-        await pref.setString('Email', email.text);
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile Updated')));
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TabbarStEvent(),));
-      }
-    } catch (e) {
-      
-    }
-  }
   @override
+  void initState() {
+    super.initState();
+    setuserdetails();
+  }
 
+  Future<void> updateuserdetails() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? uid = pref.getString('stdId');
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection('student data')
+          .doc(uid)
+          .update({
+        'Name': name.text,
+        'Depatment': department.text,
+        'Phone': phonenumber.text,
+        'Register':register.text,
+        'Email': email.text,
+
+        'imageurl': imageurl ?? '',
+      });
+      await pref.setString('Name', name.text);
+      await pref.setString('Depatment', department.text);
+      await pref.setString('Phone', phonenumber.text);
+      await pref.setString('Email', email.text);
+      await pref.setString('Register', register.text);
+      if (imageurl != null) {
+        await pref.setString('imageurl', imageurl!);
+      }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Profile updated')));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StudentProfiile(),
+          ));
+    }
+  }
+
+  Future<void> profileimg() async {
+    if (image != null) {
+      var ref = FirebaseStorage.instance
+          .ref()
+          .child('profile image')
+          .child(DateTime.now().millisecondsSinceEpoch.toString());
+      await ref.putFile(image!);
+      var imgurl = await ref.getDownloadURL();
+      setState(() {
+        imageurl = imgurl;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false,
-        title: Center(child: Text('Profile',
-        style: TextStyle(
-          fontWeight: FontWeight.bold
+      appBar: AppBar(
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(fontWeight: FontWeight.w500),
         ),
-        )),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StudentProfiile(),
+                  ));
+            },
+            icon: Icon(Icons.arrow_back)),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment
-              .center,
-              children: [
-                // CircleAvatar(
-                //   radius: 50,
-                //   backgroundImage: AssetImage('images/profile.jpg'),),
-                InkWell(
-                  onTap: () async{
-                    ImagePicker Picked = ImagePicker();
-                pick = await Picked.pickImage(source: ImageSource.gallery);
-                setState(() {
-                  image = File(pick!.path);
-                });
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+              )),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: InkWell(
+                  onTap: () async {
+                    var picked = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    if (picked != null) {
+                      setState(() {
+                        image = File(picked.path);
+                      });
+                    }
                   },
-                  child:CircleAvatar(
+                  child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: image != null? FileImage(image!):null,
-                    child: image == null? Icon(Icons.person,size: 50,):null,
-                    
-                    
-                  )
-                  //
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(100),
-                  //   child: image == null?
-                  //   Image.asset('images/profile.jpg',width: 100,):Image.file(image!,width: 130,)
-                  // ),
-                )
-              ],
-            ),
-          ),
-           Padding(
-             padding: const EdgeInsets.only(top: 20),
-             child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text('Name'),
+                    backgroundImage: image != null
+                        ? FileImage(image!) as ImageProvider<Object>
+                        : (imageurl != null && imageurl!.isNotEmpty)
+                            ? NetworkImage(imageurl!)
+                            : null,
+                    child: image == null && (imageurl == null || imageurl!.isEmpty)
+                        ? Icon(Icons.person, size: 50)
+                        : null,
+                  ),
                 ),
-              ],
-                       ),
-           ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              controller: name,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
               ),
-            ),
-          ),
-           Padding(
-             padding: const EdgeInsets.only(top: 20),
-             child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text('Department'),
-                ),
-              ],
-                       ),
-           ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              controller: department,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 30),
+                    child: Text(
+                      'Name',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-           Padding(
-             padding: const EdgeInsets.only(top: 20),
-             child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text('Register No'),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: SizedBox(
+                  width: 350,
+                  child: TextFormField(
+                    controller: name,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
                 ),
-              ],
-                       ),
-           ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              controller: register,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
               ),
-            ),
-          ),
-           Padding(
-             padding: const EdgeInsets.only(top: 20),
-             child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text('Phone No'),
-                ),
-              ],
-                       ),
-           ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              controller: phonenumber,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 30),
+                    child: Text(
+                      'Department',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-           Padding(
-             padding: const EdgeInsets.only(top: 30),
-             child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text('Email'),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: SizedBox(
+                  width: 350,
+                  child: TextFormField(
+                    controller: department,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
                 ),
-              ],
-                       ),
-           ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: TextFormField(
-              controller: email,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5)
-                )
               ),
-            ),
-          ),
-           Padding(
-             padding: const EdgeInsets.only(left: 22,top: 20),
-             child: Row(
-               children: [
-                 InkWell(
-                  onTap: () {
-                    ProfileImg();
-                    editstudentprofile();
-                    // Navigator.pop(context);
+               Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 30),
+                    child: Text(
+                      'Register number',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: SizedBox(
+                  width: 350,
+                  child: TextFormField(
+                    controller: register,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 30),
+                    child: Text(
+                      'Phone No',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: SizedBox(
+                  width: 350,
+                  child: TextFormField(
+                    controller: phonenumber,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 30),
+                    child: Text(
+                      'Email',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: SizedBox(
+                  width: 350,
+                  child: TextFormField(
+                    controller: email,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: InkWell(
+                  onTap: () async {
+                    await profileimg();
+                    await updateuserdetails();
                   },
-                   child: Container(
-                     width: 350,
-                     height: 50,
-                     decoration: BoxDecoration(
-                       color: Colors.blue,
-                       borderRadius: BorderRadius.circular(10)
-                     ),
-                     child: Center(child: Text('Submit',style: TextStyle(color: Colors.white),)),
-                   ),
-                 ),
-               ],
-             ),
-           )
-
-        ],
+                  child: Container(
+                    height: 50,
+                    width: 350,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF3063A5),
+                        borderRadius: BorderRadius.circular(7)),
+                    child: Center(
+                        child: Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    )),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

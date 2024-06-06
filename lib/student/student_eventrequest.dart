@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:school_events/student/studenteventrequest_details.dart';
 import 'package:school_events/student/studentreqevent_detail.dart';
@@ -10,95 +11,53 @@ class StudentEventRequest extends StatefulWidget {
 }
 
 class _StudentEventRequestState extends State<StudentEventRequest> {
+  List previous =['Holi Festival','Halloween'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20,top: 25),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => StudentrqeventDetail(),));
-              },
-              child: Container(
-                height: 70,
-                width: 360,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
+      body: StreamBuilder(stream: FirebaseFirestore.instance.collection('Request Event').snapshots(),
+      builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+        if(!snapshot.hasData){
+          return Center(child: CircularProgressIndicator(),);
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            var event = snapshot.data!.docs[index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                
+                
+                tileColor: Color(0xFF3063A5),
+                title: Text(event['Event'],style: TextStyle(color: Colors.white),),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentrqeventDetail(event:event),));
+                },
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10,),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 100),
-                        child: Text('Holi festival',
-                        style: TextStyle(fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Text('Accepted',style: TextStyle(
-                        color: Colors.white
-                      ),)
-                    ],
-                  ),
-                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20,top: 25),
-            child: Container(
-              height: 70,
-              width: 360,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10,),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 100),
-                      child: Text('Halloween',
-                      style: TextStyle(fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Text('Reject',style: TextStyle(
-                      color: Colors.white
-                    ),)
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 300),
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => StudentevreqDetails(),));
-                  },
-                  child: CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    radius: 30,
-                    child: Icon(Icons.add,size: 50,color: Colors.white,),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
+            );
+        },);
+      },
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 60),
+        child: Container(
+          height: 70,
+          width: 70,
+          child: FloatingActionButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => StudentevreqDetails(),));
+          },
+          child: Icon(Icons.add,color: Colors.white,size: 40,),
+          backgroundColor: Color(0xFF3063A5),
+          shape: CircleBorder(),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
+// 

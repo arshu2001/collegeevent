@@ -44,7 +44,7 @@ class _TabbarStEventState extends State<TabbarStEvent> {
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorPadding: EdgeInsets.all(10.0),
                   indicator: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color(0xFF3063A5),
                     borderRadius: BorderRadius.circular(20)
                   ),
                   tabs: [

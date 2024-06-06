@@ -19,7 +19,7 @@ class _TabbarStDetailPhotoState extends State<TabbarStDetailPhoto> {
            bottom: TabBar(
             dividerColor: Colors.white,
             labelStyle: TextStyle(fontSize: 20),
-            labelColor: Colors.blue,
+            labelColor: Color(0xFF3063A5),
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             tabs: [

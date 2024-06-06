@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentProfiile extends StatefulWidget {
   File? image;
+  
   StudentProfiile({super.key, this.image});
 
   @override
@@ -20,6 +21,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
   final TextEditingController register = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController phone = TextEditingController();
+  String? imageurl;
   Future<void> fetchStudentDetails()async{
     try {
       SharedPreferences spref = await SharedPreferences.getInstance();
@@ -40,6 +42,7 @@ class _StudentProfiileState extends State<StudentProfiile> {
               register.text = studentSnapshot['Register'] ?? '';
               email.text = studentSnapshot['Email'] ?? '';
               phone.text = studentSnapshot['Phone'] ?? '';
+              imageurl = studentSnapshot['imageurl'] ?? '';
 
             });
           }
@@ -78,7 +81,10 @@ class _StudentProfiileState extends State<StudentProfiile> {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: widget.image != null? FileImage(widget.image!):null,
+                  backgroundImage: imageurl !=null && imageurl!.isNotEmpty
+                  ? NetworkImage(imageurl!):null,
+                child:  imageurl == null || imageurl!.isEmpty
+                ? Icon(Icons.person,size: 50,):null,  
                   // child: widget.image == null? Icon(Icons.person,size: 50,):null,
                   ),
               ],

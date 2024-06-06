@@ -38,7 +38,7 @@ class _StudentRegisterSuccessState extends State<StudentRegisterSuccess> {
                    width: 350,
                    height: 50,
                    decoration: BoxDecoration(
-                     color: Colors.blue,
+                     color: Color(0xFF3063A5),
                      borderRadius: BorderRadius.circular(10)
                    ),
                    child: Center(child: Text('Done',style: TextStyle(color: Colors.white,fontSize: 18),)),

@@ -27,7 +27,7 @@ class _StudentPreviousEventState extends State<StudentPreviousEvent> {
                 height: 70,
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Color(0xFF3063A5),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Padding(
@@ -55,7 +55,7 @@ class _StudentPreviousEventState extends State<StudentPreviousEvent> {
                 height: 70,
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Color(0xFF3063A5),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Padding(

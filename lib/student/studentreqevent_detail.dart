@@ -1,7 +1,13 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
+// import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class StudentrqeventDetail extends StatefulWidget {
-  const StudentrqeventDetail({super.key});
+  var event;
+  StudentrqeventDetail({super.key, required this.event,});
 
   @override
   State<StudentrqeventDetail> createState() => _StudentrqeventDetailState();
@@ -12,7 +18,7 @@ class _StudentrqeventDetailState extends State<StudentrqeventDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('details')),
+        title: Center(child: Text('Details')),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -28,107 +34,78 @@ class _StudentrqeventDetailState extends State<StudentrqeventDetail> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Anandu',
-                  style: TextStyle(
-                    fontSize: 20
-                  ),
-                  )
-                ],
-              ),
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Department'),
+                Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Name'),
+                       
                       Padding(
-                        padding: const EdgeInsets.only(left: 25),
-                        child: Text(':      Bcom'),
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Request Event'),
                       ),
-                      
-                    ],
-                  ),
-                ),
-                
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Date'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Time'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Location'),
+                      )
               ],
             ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Request event'),
+                Text(':'),
+                     
                       Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: Text(':      Holi festival'),
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(':'),
                       ),
-                      
-                    ],
-                  ),
-                ),
-                
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(':'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(':'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(':'),
+                      )
               ],
             ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Date'),
+                Text(widget.event['Name']),
                       Padding(
-                        padding: const EdgeInsets.only(left: 75),
-                        child: Text(':      25/01/2024'),
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(widget.event['Event']),
                       ),
-                      
-                    ],
-                  ),
-                ),
-                
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(widget.event['Date']),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top:10),
+                        child: Text(widget.event['Time']),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(widget.event['Location']),
+                      )
               ],
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Time'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 73),
-                        child: Text(':      10.00'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100,top: 30),
-                  child: Row(
-                    children: [
-                      Text('Location'),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 52),
-                        child: Text(':      collage hall'),
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                
               ],
             ),
             Row(
@@ -198,7 +175,7 @@ class _StudentrqeventDetailState extends State<StudentrqeventDetail> {
                   child: Container(
                     height: 110,
                     width: 360,
-                    child: Text('Corem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.'),
+                    child: Text(widget.event['Description']),
                   ),
                 )
               ],
