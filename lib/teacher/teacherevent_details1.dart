@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Teacher_Details1 extends StatefulWidget {
-  const Teacher_Details1({super.key});
+  var event;
+  Teacher_Details1({super.key, required this.event});
+  
 
   @override
   State<Teacher_Details1> createState() => _Teacher_Details1State();
@@ -18,66 +22,66 @@ class _Teacher_Details1State extends State<Teacher_Details1> {
       body: Padding(
         padding: const EdgeInsets.only(left: 5),
         child: Column(
-          
+
           children: [
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 110,
+                  height: 100,
                   width: 350,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.blue[100]
                   ),
-                  child: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Date'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Time'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Location'),
+                      )
+                    ],
+                                    ),
+                                    Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(':'),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Onam Festival',style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.blue
-                        ),),
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(':'),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            Text('Date'),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 36),
-                              child: Text(':  03/01/2024'),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            Text('Time'),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 34),
-                              child: Text(':  3:00 PM'),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            Text('Location'),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(':  Collage'),
-                            )
-                          ],
-                        ),
-                      ),
-                        
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(':'),
+                      )
                     ],
+                                    ),
+                                    Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(widget.event['Date']),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(widget.event['Time']),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(widget.event['Location']),
+                      )
+                    ],
+                                    )
+                                  ],
+                                ),
                   ),
                 ),
               ],

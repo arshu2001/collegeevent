@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AdminRequestForTeacher extends StatefulWidget {
-  const AdminRequestForTeacher({super.key});
+  QueryDocumentSnapshot<Map<String, dynamic>> data;
+  AdminRequestForTeacher({super.key, required this.data });
 
   @override
   State<AdminRequestForTeacher> createState() => _AdminRequestForTeacherState();
@@ -100,19 +102,19 @@ class _AdminRequestForTeacherState extends State<AdminRequestForTeacher> {
                         Text('Bcom'),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('Food Festival'),
+                          child: Text(widget.data!['Event']),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('21/01/2025'),
+                          child: Text(widget.data!['Date']),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('10.00 AM'),
+                          child: Text(widget.data!['Time']),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('College Ground'),
+                          child: Text(widget.data!['Location']),
                         )
                       ],
                     )
@@ -139,7 +141,7 @@ class _AdminRequestForTeacherState extends State<AdminRequestForTeacher> {
                   child: Container(
                     height: 110,
                     width: 360,
-                    child: Text('Corem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.'),
+                    child: Text(widget.data!['Description']),
                   ),
                 )
               ],

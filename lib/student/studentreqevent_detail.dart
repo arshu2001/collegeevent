@@ -3,7 +3,9 @@
 // import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentrqeventDetail extends StatefulWidget {
   var event;
@@ -14,6 +16,27 @@ class StudentrqeventDetail extends StatefulWidget {
 }
 
 class _StudentrqeventDetailState extends State<StudentrqeventDetail> {
+  String?imageurl;
+  // Future<void>profileimgshow()async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? uid = pref.getString('stdId');
+  //   print('Shared Preference Student Id : $uid');
+
+  //   if(uid!.isNotEmpty){
+  //     Stream<DocumentSnapshot> studentstreamimg = FirebaseFirestore.instance.collection('student data')
+  //     .doc(uid)
+  //     .snapshots();
+
+  //     studentstreamimg.listen((studentSnapshot) { 
+  //       if(studentSnapshot.exists){
+  //         setState(() {
+  //           imageurl = studentSnapshot['imageurl'] ?? '';
+  //         });
+  //       }
+  //     });
+  //   }
+
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +53,10 @@ class _StudentrqeventDetailState extends State<StudentrqeventDetail> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('images/profile.jpg'),),
+                    backgroundImage:imageurl !=null && imageurl!.isNotEmpty
+                  ? NetworkImage(imageurl!):null,
+                child:  imageurl == null || imageurl!.isEmpty
+                ? Icon(Icons.person,size: 50,):null,),
                 ],
               ),
             ),

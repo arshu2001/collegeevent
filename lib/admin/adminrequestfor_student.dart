@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
 class AdminRequestForStudent extends StatefulWidget {
-  const AdminRequestForStudent({super.key});
+  QueryDocumentSnapshot<Map<String, dynamic>> data;
+  AdminRequestForStudent({super.key, required this.data, });
 
   @override
   State<AdminRequestForStudent> createState() => _AdminRequestForStudentState();
@@ -36,7 +38,7 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Anandu',
+                  Text(widget.data!['Name'],
                   style: TextStyle(
                     fontSize: 20
                   ),
@@ -103,19 +105,19 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
                         Text('Bcom'),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('Food Festival'),
+                          child: Text(widget.data!['Event']),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('21/01/2025'),
+                          child: Text(widget.data!['Date']),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('10.00 AM'),
+                          child: Text(widget.data!['Time']),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text('College Ground'),
+                          child: Text(widget.data!['Location']),
                         )
                       ],
                     )
@@ -142,7 +144,7 @@ class _AdminRequestForStudentState extends State<AdminRequestForStudent> {
                   child: Container(
                     height: 110,
                     width: 360,
-                    child: Text('Corem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.'),
+                    child: Text(widget.data!['Description']),
                   ),
                 )
               ],

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:school_events/admin/adminrequestfor_teacher.dart';
 
@@ -11,85 +13,35 @@ class AdminTeacherTabbar extends StatefulWidget {
 class _AdminTeacherTabbarState extends State<AdminTeacherTabbar> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-           Padding(
-            padding: const EdgeInsets.only(left: 25,top: 10),
-            child: Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AdminRequestForTeacher(),));
-                  },
-                  child: Container(
-                    height: 55,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(68, 114, 178, 1),
-                      borderRadius: BorderRadius.circular(6)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15,top: 5),
-                      child: Row(
-                        children: [
-                          CircleAvatar(backgroundImage: AssetImage('images/profile.jpg'),),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text('Anandu Request Food Festival',
-                            style: TextStyle(fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  
-                  ),
-                ),
-              ],
-            ),
-          ),
-           Padding(
-            padding: const EdgeInsets.only(left: 25,top: 10),
-            child: Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    height: 55,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(68, 114, 178, 1),
-                      borderRadius: BorderRadius.circular(6)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15,top: 5),
-                      child: Row(
-                        children: [
-                          CircleAvatar(backgroundImage: AssetImage('images/profile.jpg'),),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text('Akshay Request Chritmas',
-                            style: TextStyle(fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body:StreamBuilder(stream: FirebaseFirestore.instance.collection('teacher event').snapshots(),
+         builder: (context, snapshot) {
+           if(!snapshot.hasData){
+            return Center(child: CircularProgressIndicator(),);
+           }
+           return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+             var tdata= snapshot.data!.docs[index];
+
+             return Padding(
+               padding: const EdgeInsets.only(left: 15,right: 15,top: 10),
+               child: ListTile(
+                tileColor: Color(0xFF3063A5),
+                title: Text('${tdata['Date']} requests ${tdata['Event']}'),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AdminRequestForTeacher(data : tdata),));
+                },
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+               ),
+             );
+           },);
+         },),
       ),
     );
   }
 }
+
+//  

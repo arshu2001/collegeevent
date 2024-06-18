@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:school_events/forgot/tchforgot.dart';
 import 'package:school_events/teacher/tabbar.dart';
 import 'package:school_events/teacher/teacher_registration.dart';
@@ -21,9 +22,72 @@ class _Teacher_SignState extends State<Teacher_Sign> {
   final formKey = GlobalKey<FormState>();
   var email = TextEditingController();
   var password = TextEditingController();
-  Future<void> _teacherdata(String data) async {
-    SharedPreferences preff = await SharedPreferences.getInstance();
-    await preff.setString('teacherId', data);
+  // Future<void> _teacherdata(String data) async {
+  //   SharedPreferences preff = await SharedPreferences.getInstance();
+  //   await preff.setString('teacherId', data);
+  // }
+
+  Future<void>teacherlogin()async{
+    if(formKey.currentState!.validate()){
+        String email1 =email.text.trim();
+        String password1 = password.text.trim();
+        var querySnapshot = await FirebaseFirestore.instance
+        .collection('Teacher Data')
+        .where('Email',isEqualTo: email1)
+        .limit(1)
+        .get();
+        if(querySnapshot.docs.isNotEmpty){
+          var userData = querySnapshot.docs.first.data();
+          if(userData['Password'] == password1){
+            var storeId = userData['tdId'];
+            if(storeId != null){
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              await pref.setString('tdId', storeId);
+            }  
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            String? tdId = pref.getString('tdId');
+            print('student Id: $tdId');
+            
+              email.clear();
+              password.clear();
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Tabbar(),));
+
+            Fluttertoast.showToast(
+            msg: 'Succesfully loggined',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+            }else{
+              print('Incorrect password');
+              Fluttertoast.showToast(
+              msg: 'Incorrect password',
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0,
+        );
+            }
+          }else{
+            print('User not Fount');
+            Fluttertoast.showToast(
+            msg: 'User Not Found',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+        );
+          
+        }
+      }
   }
 
   @override
@@ -114,27 +178,28 @@ class _Teacher_SignState extends State<Teacher_Sign> {
                         child: Center(
                             child: TextButton(
                                 onPressed: () async{
-                                  if(formKey.currentState?.validate() ?? false){
-                                    String email1 = email.text.trim();
-                                    String password1 =password.text.trim();
-                                    var querysnap = await FirebaseFirestore
-                                    .instance.collection('Teacher Data')
-                                    .where('Email',isEqualTo: email1)
-                                    .limit(1)
-                                    .get();
+                                  teacherlogin();
+                                  // if(formKey.currentState?.validate() ?? false){
+                                  //   String email1 = email.text.trim();
+                                  //   String password1 =password.text.trim();
+                                  //   var querysnap = await FirebaseFirestore
+                                  //   .instance.collection('Teacher Data')
+                                  //   .where('Email',isEqualTo: email1)
+                                  //   .limit(1)
+                                  //   .get();
 
 
-                                  if(querysnap.docs.isNotEmpty){
-                                    var userdata = querysnap.docs.first.data();
-                                    if(userdata['Password'] == password1){
-                                      var teacherId = userdata['teacherId'] as String?;
-                                      if(teacherId != null){
-                                        await _teacherdata(teacherId);
-                                      }
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Tabbar(),)); 
-                                    }
-                                  } 
-                                  }
+                                  // if(querysnap.docs.isNotEmpty){
+                                  //   var userdata = querysnap.docs.first.data();
+                                  //   if(userdata['Password'] == password1){
+                                  //     var teacherId = userdata['teacherId'] as String?;
+                                  //     if(teacherId != null){
+                                  //       await _teacherdata(teacherId);
+                                  //     }
+                                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => Tabbar(),)); 
+                                  //   }
+                                  // } 
+                                  // }
                                   // Navigator.push(
                                   //     context,
                                   //     MaterialPageRoute(
